@@ -1,12 +1,11 @@
 // FIREBASE CONFIG
 const firebaseConfig = {
-    apiKey: "AIzaSyCsg9lxDcvYuBbAiho0k3P6-_C2GTkud30",
-    authDomain: "product-inventory-4b5f4.firebaseapp.com",
-    databaseURL: "https://product-inventory-4b5f4-default-rtdb.firebaseio.com",
-    projectId: "product-inventory-4b5f4",
-    storageBucket: "product-inventory-4b5f4.appspot.com",
-    messagingSenderId: "474540523393",
-    appId: "1:474540523393:web:878845c6cbeddf218bb280"
+  apiKey: "AIzaSyCqPUgzZd2oubl9ZlSOtPbVOPpRU1U1r5E",
+  authDomain: "products-app-cf562.firebaseapp.com",
+  projectId: "products-app-cf562",
+  storageBucket: "products-app-cf562.appspot.com",
+  messagingSenderId: "883666757109",
+  appId: "1:883666757109:web:0865ebe2c1179ff3cfacbc"
 };            
 
 firebase.initializeApp(firebaseConfig);

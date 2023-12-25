@@ -1,40 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://use.fontawesome.com/f7ba7af7c0.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-... your integrity hash here ..." crossorigin="anonymous" />
-    <link rel="stylesheet" href="style.css">
-    <title>Login</title>
-</head>
-<body class="login-bg">
-    <div class="card">
-        <div class="card-body">
-            <div class="bg-danger alert">Wrong Username or Password</div>
-            <div class="card-title">
-                <h2>Login</h2>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://use.fontawesome.com/f7ba7af7c0.js"></script>
+        <title>Product Page</title>
+    </head>
+    <body>
+        <div class="section">
+            <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+                <div class="container justify-content-end">
+                    <li class="nav-item d-flex m-3">
+                        <button type="button" class="nav-link btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#AddProduct"><i class="fa fa-upload" aria-hidden="true"><span class="px-1">Add Products</span></i></button>
+                </li>
+                <li class="nav-item d-flex">
+                    <a href="sold.html" class="nav-link btn btn-outline-secondary" id="soldTable">Sold Products</a>
+                </li>
+                <li class="nav-item mx-5 d-flex">
+                    <a href="#" class="nav-link btn btn-outline-secondary"><i class="bi bi-power" style="font-size: 1.5em;"></i></a>
+                </li>
             </div>
-            <form id="loginform">
-                <div class="row">
-                    <input class="mb-3 form-control" type="email" id="email" placeholder="Email">
-                    <div class="input-group">
-                        <input class="form-control" type="password" id="password" placeholder="Password">
-                        <span class="input-group-text" id="password-toggle">
-                            <i class="fas fa-eye" id="eye-icon"></i>
-                        </span>
-                    </div>
+        </nav>
+        <div class="container p-3">
+            <div class="row">
+                <div class="col mx-5">
+                    <a class="btn btn-danger" id="deleteBtn">DELETE</a>
                 </div>
-            </form>
-            <div class="mt-4">
-                <button class="btn btn-danger" onclick="login()">Login</button>
+                <div class="col">
+                    <a href="#" class="btn btn-primary px-3"  id="sellBtn">SELL</a>
+                </div>
+                <div class="col">
+                    <h4 class="border p-3  px-3 w-100 " id="TotalPrice"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="scrollable-table">
+        <table class="table table-responsive" id="ProductTable">
+            <thead class="bg-dark text-light">
+                <tr>
+                    <th></th>
+                    <th scope="col" class="col-3">Product</th>
+                    <th scope="col" class="col-5">Description</th>
+                    <th scope="col" class="col-2">Quantity</th>
+                    <th scope="col" class="col-6">Price</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <td>
+                    <input type="checkbox">
+                </td> -->
+            </tbody>
+        </table>
+    </div>
+        
+        <!-- Add Product Form modal-->
+    <div id="AddProduct" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddProduct">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="#" id="addProductform">
+                    <div class="modal-body bg-dark text-light">
+                        <div class="alert">Product Has Been Saved</div>
+                        <div class="n-alert">Fill in The Product and Price Fields</div>
+                        <div class="mb-3">
+                            <Label for="Product">Product:</Label>
+                            <input type="text" class="form-control" id="Product">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Description">Description:</label>
+                            <textarea class="form-control" id="Description"></textarea>
+                        </div>
+                        <div class="input-group row">
+                            <div class="col">
+                                <label for="Price">Price:</label>
+                                <div class="input-group">
+                                    <Span class="input-group-text" >₦</Span>
+                                    <input type="number" placeholder="Price" class="form-control" id="Price">
+                                    <span class="input-group-text">.00</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="quantity">Quantity:</label>
+                                <div class="input-group">
+                                    <button type="button" class="quantity-left-minus btn btn-outline-secondary btn-number"  data-type="minus" data-field="">
+                                        <i class="bi bi-dash-square"></i>
+                                    </button>
+
+                                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100"></input>
+
+                                    <button type="button" class="quantity-right-plus btn btn-outline-secondary btn-number"  data-type="plus" data-field="">
+                                        <i class="bi bi-plus-square"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success"  id="save" >Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
 
+    <!-- EDIT PRODUCT MODEL -->
+    <div id="EditProduct" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EditProduct">Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="#" id="editProductForm">
+                    <div class="modal-body bg-dark text-light">
+                        <div class="alert">Product Has Been Updated</div>
+                            <div class="n-alert">Fill in The Product and Price Fields</div>
+                            <div class="mb-3">
+                                <Label for="Product">Product:</Label>
+                                <input type="text" class="form-control" id="editProduct">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Description">Description:</label>
+                                <textarea class="form-control" id="editDescription"></textarea>
+                            </div>
+                            <div class="input-group row">
+                                <div class="col">
+                                    <label for="Price">Price:</label>
+                                    <div class="input-group">
+                                        <Span class="input-group-text" >₦</Span>
+                                        <input type="number" placeholder="Price" class="form-control" id="editPrice">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="quantity">Quantity:</label>
+                                    <div class="input-group">
+                                        <button type="button" class="quantity-left-minus btn btn-outline-secondary btn-number"  data-type="minus" data-field="">
+                                            <i class="bi bi-dash-square"></i>
+                                        </button>
+
+                                        <input type="text"  id="editQuantity" name="quantity" class="form-control input-number" value="1" min="1" max="100"></input>
+
+                                        <button type="button" class="quantity-right-plus btn btn-outline-secondary btn-number"  data-type="plus" data-field="">
+                                            <i class="bi bi-plus-square"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" id="update">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
-    <script src="login.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
